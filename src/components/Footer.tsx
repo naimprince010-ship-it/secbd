@@ -68,6 +68,7 @@ export function Footer() {
                     <div className="flex gap-8">
                         <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                        <a href="/verify" className="hover:text-white transition-colors">Verify Credentials</a>
                     </div>
                 </div>
             </div>
