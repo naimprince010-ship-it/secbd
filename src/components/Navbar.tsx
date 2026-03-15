@@ -1,6 +1,6 @@
 "use client";
 
-import { Hammer, Menu, Phone, X } from "lucide-react";
+import { Hammer, Menu, Phone, X, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 
 export function Navbar() {
@@ -21,6 +21,9 @@ export function Navbar() {
                         <a href="#services" className="hover:text-safety-orange transition-colors">Services</a>
                         <a href="#portfolio" className="hover:text-safety-orange transition-colors">Portfolio</a>
                         <a href="#about" className="hover:text-safety-orange transition-colors">About</a>
+                        <a href="/verify" className="hover:text-safety-orange transition-colors flex items-center gap-1 text-sm font-bold bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/10">
+                            <ShieldCheck className="w-4 h-4 text-safety-orange" /> Verify Certificate
+                        </a>
                         <a href="#contact" className="bg-safety-orange hover:bg-safety-orange-hover text-navy font-bold py-2 px-6 rounded-md transition-all">Get a Quote</a>
                     </div>
 
@@ -38,6 +41,9 @@ export function Navbar() {
                     <a href="#services" className="py-2 hover:text-safety-orange" onClick={() => setIsOpen(false)}>Services</a>
                     <a href="#portfolio" className="py-2 hover:text-safety-orange" onClick={() => setIsOpen(false)}>Portfolio</a>
                     <a href="#about" className="py-2 hover:text-safety-orange" onClick={() => setIsOpen(false)}>About</a>
+                    <a href="/verify" className="py-2 hover:text-safety-orange flex items-center gap-1" onClick={() => setIsOpen(false)}>
+                        <ShieldCheck className="w-4 h-4 text-safety-orange" /> Verify Certificate
+                    </a>
                     <a href="#contact" className="bg-safety-orange text-navy font-bold py-3 px-6 rounded-md text-center" onClick={() => setIsOpen(false)}>Get a Quote</a>
                 </div>
             )}
