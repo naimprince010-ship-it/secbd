@@ -1,9 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import AddForm from '@/components/admin/AddForm';
+import CertificateList from '@/components/admin/CertificateList';
 import { Award } from 'lucide-react';
 
 export default function CertificatesAdminPage() {
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleRefresh = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
       <div>
@@ -14,8 +22,9 @@ export default function CertificatesAdminPage() {
         <p className="text-gray-500">Add and manage employee experience certificate records securely.</p>
       </div>
 
-      <div className="mt-8">
-        <AddForm />
+      <div className="grid grid-cols-1 gap-8 mt-8">
+        <AddForm onSuccess={handleRefresh} />
+        <CertificateList key={refreshTrigger} />
       </div>
     </div>
   );

@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { addCertificate } from '@/app/actions/admin';
 import { AlertCircle, CheckCircle2, Copy, Link as LinkIcon, Lock } from 'lucide-react';
 
-export default function AddForm() {
+interface AddFormProps {
+  onSuccess?: () => void;
+}
+
+export default function AddForm({ onSuccess }: AddFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -39,6 +43,7 @@ export default function AddForm() {
     } else {
       setSuccess(true);
       setRefNoLink(`/verify?ref=${formData.ref_no}`);
+      if (onSuccess) onSuccess();
       // Clear data but preserve password for quick consecutive entries
       setFormData({ 
         ...formData, 
