@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { addCertificate } from '@/app/actions/admin';
+import { useState, useEffect } from 'react';
+import { addCertificate, getNextReferenceNumber } from '@/app/actions/admin';
 import { AlertCircle, CheckCircle2, Copy, Link as LinkIcon, Lock } from 'lucide-react';
 
 interface AddFormProps {
@@ -23,6 +23,20 @@ export default function AddForm({ onSuccess }: AddFormProps) {
     end_date: '',
     password: ''
   });
+
+  useEffect(() => {
+    if (formData.position) {
+      const fetchRefNo = async () => {
+        const res = await getNextReferenceNumber(formData.position);
+        if (res && res.ref_no) {
+          setFormData(prev => ({ ...prev, ref_no: res.ref_no }));
+        } else if (res && res.error) {
+          console.error(res.error);
+        }
+      };
+      fetchRefNo();
+    }
+  }, [formData.position]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -112,3 +112,33 @@ export async function updateCertificate(id: number, formData: any, password?: st
     return { error: 'An unexpected error occurred.' };
   }
 }
+
+export async function getNextReferenceNumber(position: string) {
+  try {
+    const shortcodes: { [key: string]: string } = {
+      "Bricklayer (Mason)": "MASON",
+      "Electrician": "ELEC",
+      "Plumber": "PLUM",
+      "Carpenter (Kathmistri)": "CARP",
+      "Welder": "WELD",
+      "Painter": "PAINT"
+    };
+
+    const code = shortcodes[position] || "CERT";
+    const year = new Date().getFullYear();
+
+    const { count, error } = await supabase
+      .from('certificates')
+      .select('id', { count: 'exact', head: true })
+      .eq('position', position);
+
+    if (error) return { error: error.message };
+
+    const nextSerial = (count || 0) + 1;
+    const paddedSerial = String(nextSerial).padStart(3, '0');
+
+    return { ref_no: `SEC/${year}/${code}/${paddedSerial}` };
+  } catch (err) {
+    return { error: 'An unexpected error occurred.' };
+  }
+}
