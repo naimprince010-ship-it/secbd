@@ -14,7 +14,8 @@ import {
     Hammer,
     ChevronRight,
     Menu,
-    X
+    X,
+    Award
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -45,6 +46,7 @@ export default function AdminLayout({
 
     const menuItems = [
         { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
+        { label: "Certificates", icon: Award, href: "/admin/certificates" },
         { label: "Hero Section", icon: ImageIcon, href: "/admin/hero" },
         { label: "Services", icon: Briefcase, href: "/admin/services" },
         { label: "Stats", icon: BarChart3, href: "/admin/stats" },
