@@ -20,7 +20,7 @@ export default function AddForm() {
     password: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -119,11 +119,18 @@ export default function AddForm() {
           </div>
           <div className="space-y-1">
             <label className="text-xs font-black text-gray-500 uppercase">Position / Role</label>
-            <input 
-              type="text" name="position" value={formData.position} onChange={handleChange}
-              placeholder="e.g. Bricklayer" required
+            <select 
+              name="position" value={formData.position} onChange={handleChange} required
               className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-safety-orange outline-none"
-            />
+            >
+              <option value="" disabled>Select Position</option>
+              <option value="Bricklayer (Mason)">Bricklayer (Mason)</option>
+              <option value="Electrician">Electrician</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Carpenter (Kathmistri)">Carpenter (Kathmistri)</option>
+              <option value="Welder">Welder</option>
+              <option value="Painter">Painter</option>
+            </select>
           </div>
         </div>
 
