@@ -1,12 +1,29 @@
-import { Briefcase, Clock, Users } from "lucide-react";
+import { Briefcase, Clock, Users, LucideIcon, Pickaxe } from "lucide-react";
 
-const stats = [
-    { label: "Projects Completed", value: "850+", icon: Briefcase },
-    { label: "Years of Experience", value: "25+", icon: Clock },
-    { label: "Happy Clients", value: "620+", icon: Users },
-];
+const iconMap: { [key: string]: LucideIcon } = {
+    Briefcase: Briefcase,
+    Clock: Clock,
+    Users: Users,
+};
 
-export function Stats() {
+interface StatItem {
+    id: number;
+    label: string;
+    value: string;
+    icon: string;
+}
+
+interface StatsProps {
+    data?: StatItem[];
+}
+
+export function Stats({ data }: StatsProps) {
+    const displayStats = data || [
+        { label: "Projects Completed", value: "850+", icon: "Briefcase" },
+        { label: "Years of Experience", value: "25+", icon: "Clock" },
+        { label: "Happy Clients", value: "620+", icon: "Users" },
+    ];
+
     return (
         <section className="bg-navy py-20 text-white overflow-hidden relative">
             {/* Decorative safety stripe */}
@@ -14,19 +31,22 @@ export function Stats() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                    {stats.map((stat, index) => (
-                        <div key={index} className="flex flex-col items-center group">
-                            <div className="w-16 h-16 rounded-full bg-safety-orange/10 border border-safety-orange/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <stat.icon className="w-8 h-8 text-safety-orange" />
+                    {displayStats.map((stat, index) => {
+                        const Icon = iconMap[stat.icon] || Pickaxe;
+                        return (
+                            <div key={index} className="flex flex-col items-center group">
+                                <div className="w-16 h-16 rounded-full bg-safety-orange/10 border border-safety-orange/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Icon className="w-8 h-8 text-safety-orange" />
+                                </div>
+                                <div className="text-5xl font-black mb-2 text-white tabular-nums tracking-tighter">
+                                    {stat.value}
+                                </div>
+                                <div className="text-gray-400 font-bold uppercase tracking-widest text-sm">
+                                    {stat.label}
+                                </div>
                             </div>
-                            <div className="text-5xl font-black mb-2 text-white tabular-nums tracking-tighter">
-                                {stat.value}
-                            </div>
-                            <div className="text-gray-400 font-bold uppercase tracking-widest text-sm">
-                                {stat.label}
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

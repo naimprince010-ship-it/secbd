@@ -1,39 +1,26 @@
 import Image from "next/image";
 
-const projects = [
-    {
-        title: "Eco-Industrial Complex",
-        category: "Industrial",
-        image: "/images/industrial.png",
-    },
-    {
-        title: "Skyline Corporate Hub",
-        category: "Commercial",
-        image: "/images/commercial.png",
-    },
-    {
-        title: "Azure Residences",
-        category: "Residential",
-        image: "/images/residential.png",
-    },
-    {
-        title: "Modern Rooftop Garden",
-        category: "Renovation",
-        image: "/images/roofing.png",
-    },
-    {
-        title: "Granite River Bridge",
-        category: "Infrastructure",
-        image: "/images/bridge.png",
-    },
-    {
-        title: "Urban Loft Remodel",
-        category: "Renovation",
-        image: "/images/renovation.png",
-    },
-];
+interface PortfolioItem {
+    id: number;
+    title: string;
+    category: string;
+    image: string;
+}
 
-export function Portfolio() {
+interface PortfolioProps {
+    data?: PortfolioItem[];
+}
+
+export function Portfolio({ data }: PortfolioProps) {
+    const displayProjects = data || [
+        { id: 1, title: "Eco-Industrial Complex", category: "Industrial", image: "/images/industrial.png" },
+        { id: 2, title: "Skyline Corporate Hub", category: "Commercial", image: "/images/commercial.png" },
+        { id: 3, title: "Azure Residences", category: "Residential", image: "/images/residential.png" },
+        { id: 4, title: "Modern Rooftop Garden", category: "Renovation", image: "/images/roofing.png" },
+        { id: 5, title: "Bridge Infrastructure", category: "Industrial", image: "/images/bridge.png" },
+        { id: 6, title: "Urban Loft Remodel", category: "Renovation", image: "/images/renovation.png" },
+    ];
+
     return (
         <section id="portfolio" className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,13 +30,12 @@ export function Portfolio() {
                         <h2 className="text-4xl md:text-5xl font-black text-navy mt-2">Latest Masterpieces</h2>
                     </div>
                     <div className="flex gap-4">
-                        {/* Filter buttons could go here */}
                         <div className="w-20 h-1 bg-safety-orange hidden md:block mb-3"></div>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map((project, index) => (
+                    {displayProjects.map((project, index) => (
                         <div key={index} className="group relative overflow-hidden rounded-xl bg-navy aspect-square">
                             <Image
                                 src={project.image}

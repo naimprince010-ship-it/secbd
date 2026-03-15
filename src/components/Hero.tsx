@@ -1,6 +1,11 @@
 import { ArrowRight, HardHat, ShieldCheck, Trophy } from "lucide-react";
 
-export function Hero() {
+interface HeroProps {
+    title?: string;
+    subtitle?: string;
+}
+
+export function Hero({ title, subtitle }: HeroProps) {
     return (
         <section className="relative h-screen flex items-center pt-20 overflow-hidden bg-navy">
             {/* Background Pattern */}
@@ -15,10 +20,10 @@ export function Hero() {
                         <span className="text-sm font-semibold uppercase tracking-wider">Certified Construction Excellence</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-                        Building Your <span className="text-safety-orange">Vision</span> With Unmatched Precision
+                        {title || "Building Your Vision With Unmatched Precision"}
                     </h1>
                     <p className="text-lg text-gray-300 mb-10 max-w-xl">
-                        From residential masterpieces to complex industrial infrastructures, we deliver quality that stands the test of time. Expert engineering meet innovative design.
+                        {subtitle || "From residential masterpieces to complex industrial infrastructures, we deliver quality that stands the test of time. Expert engineering meet innovative design."}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                         <a href="#contact" className="flex items-center justify-center gap-2 bg-safety-orange hover:bg-safety-orange-hover text-navy font-bold py-4 px-10 rounded-md text-lg transition-all transform hover:-translate-y-1">
@@ -43,7 +48,6 @@ export function Hero() {
 
                 <div className="hidden lg:block relative animate-in fade-in slide-in-from-right duration-1000 delay-200">
                     <div className="relative z-10 rounded-2xl overflow-hidden border-8 border-white/5 shadow-2xl">
-                        {/* We'll use a generated image here or a beautiful placeholder gradient for now */}
                         <div className="aspect-[4/5] bg-gradient-to-br from-navy via-navy-light to-safety-orange/20 flex items-center justify-center">
                             <div className="text-center p-8">
                                 <div className="w-24 h-24 bg-safety-orange/20 rounded-full flex items-center justify-center mx-auto mb-6">

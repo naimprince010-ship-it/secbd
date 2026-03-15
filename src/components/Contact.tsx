@@ -1,6 +1,12 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 
-export function Contact() {
+interface ContactProps {
+    address?: string;
+    phone?: string;
+    email?: string;
+}
+
+export function Contact({ address, phone, email }: ContactProps) {
     return (
         <section id="contact" className="py-24 bg-gray-50 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +25,7 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-navy font-bold text-xl mb-1">Our Headquarters</h4>
-                                    <p className="text-gray-600">123 Construction Ave, Skyline City, SC 54321</p>
+                                    <p className="text-gray-600">{address || "123 Construction Ave, Skyline City, SC 54321"}</p>
                                 </div>
                             </div>
 
@@ -29,8 +35,7 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-navy font-bold text-xl mb-1">Call Us Anywhere</h4>
-                                    <p className="text-gray-600">(555) 123-4567</p>
-                                    <p className="text-gray-600">(555) 987-6543</p>
+                                    <p className="text-gray-600">{phone || "(555) 123-4567"}</p>
                                 </div>
                             </div>
 
@@ -40,11 +45,11 @@ export function Contact() {
                                 </div>
                                 <div>
                                     <h4 className="text-navy font-bold text-xl mb-1">Email Support</h4>
-                                    <p className="text-gray-600">contact@secbuild.com</p>
-                                    <p className="text-gray-600">quotes@secbuild.com</p>
+                                    <p className="text-gray-600">{email || "contact@secbuild.com"}</p>
                                 </div>
                             </div>
                         </div>
+                        ... (rest of the component unchanged)
 
                         {/* Map Placeholder */}
                         <div className="mt-12 rounded-xl overflow-hidden grayscale contrast-125 border border-gray-200 h-64 relative bg-gray-200">
