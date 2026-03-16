@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getCertificates, deleteCertificate, updateCertificate } from '@/app/actions/admin';
-import { Edit2, Trash2, Check, X, AlertCircle, Award } from 'lucide-react';
+import { Edit2, Trash2, Check, X, AlertCircle, Award, Download } from 'lucide-react';
 
 export default function CertificateList() {
   const [certificates, setCertificates] = useState<any[]>([]);
@@ -73,6 +73,34 @@ export default function CertificateList() {
     }
   };
 
+  const downloadCSV = () => {
+    if (certificates.length === 0) return;
+
+    const headers = ['Ref No', 'Employee', 'Position', 'Start Date', 'End Date'];
+    const rows = certificates.map(cert => [
+      cert.ref_no,
+      cert.name,
+      cert.position,
+      new Date(cert.start_date).toLocaleDateString(),
+      new Date(cert.end_date).toLocaleDateString()
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${val.toString().replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `certificates_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (loading && certificates.length === 0) {
     return (
       <div className="flex justify-center p-8">
@@ -88,12 +116,20 @@ export default function CertificateList() {
           <Award className="w-5 h-5 text-safety-orange" />
           Existing Records ({certificates.length})
         </h3>
-        <button 
-          onClick={loadCertificates}
-          className="text-xs font-bold text-gray-500 hover:text-navy transition"
-        >
-          Refresh
-        </button>
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={downloadCSV}
+            className="flex items-center gap-1.5 text-xs font-bold text-amber-600 hover:text-navy transition"
+          >
+            <Download className="w-4 h-4" /> Export CSV
+          </button>
+          <button 
+            onClick={loadCertificates}
+            className="text-xs font-bold text-gray-500 hover:text-navy transition"
+          >
+            Refresh
+          </button>
+        </div>
       </div>
 
       {error && (

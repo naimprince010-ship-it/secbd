@@ -53,7 +53,7 @@ export function Hero({ title, subtitle }: HeroProps) {
                             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19140f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')" }}
                         >
                             {/* Dark overlay for text legibility */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/50 to-safety-orange/30"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-navy/60 via-navy/30 to-safety-orange/10"></div>
 
                             <div className="text-center p-8 relative z-10">
                                 <div className="w-24 h-24 bg-safety-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-md">
