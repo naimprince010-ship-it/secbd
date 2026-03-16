@@ -48,13 +48,19 @@ export function Hero({ title, subtitle }: HeroProps) {
 
                 <div className="hidden lg:block relative animate-in fade-in slide-in-from-right duration-1000 delay-200">
                     <div className="relative z-10 rounded-2xl overflow-hidden border-8 border-white/5 shadow-2xl">
-                        <div className="aspect-[4/5] bg-gradient-to-br from-navy via-navy-light to-safety-orange/20 flex items-center justify-center">
-                            <div className="text-center p-8">
-                                <div className="w-24 h-24 bg-safety-orange/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div 
+                            className="aspect-[4/5] bg-cover bg-center flex items-center justify-center relative"
+                            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19140f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')" }}
+                        >
+                            {/* Dark overlay for text legibility */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/50 to-safety-orange/30"></div>
+
+                            <div className="text-center p-8 relative z-10">
+                                <div className="w-24 h-24 bg-safety-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-md">
                                     <HardHat className="w-12 h-12 text-safety-orange" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-white mb-2">Quality Construction</h3>
-                                <p className="text-gray-400">Exceeding expectations on every project.</p>
+                                <h3 className="text-2xl font-bold text-white mb-2 shadow-sm">Quality Construction</h3>
+                                <p className="text-gray-200 shadow-sm">Exceeding expectations on every project.</p>
                             </div>
                         </div>
                     </div>
