@@ -1,28 +1,73 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Phone, MapPin, Save, CheckCircle2, Globe, Clock as ClockIcon } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function ContactAdmin() {
     const [contact, setContact] = useState({
-        address: "123 Construction Ave, Skyline City, SC 54321",
-        phone: "(555) 123-4567",
-        email: "contact@secbuild.com",
-        hours: "Mon - Fri: 8:00 AM - 6:00 PM",
+        address: "",
+        phone: "",
+        email: "",
+        hours: "",
+        website: "",
     });
 
     const [isSaving, setIsSaving] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [showSuccess, setShowSuccess] = useState(false);
 
-    const handleSave = (e: React.FormEvent) => {
+    useEffect(() => {
+        const fetchSettings = async () => {
+            setIsLoading(true);
+            const { data, error } = await supabase
+                .from('site_settings')
+                .select('*')
+                .eq('id', 1)
+                .single();
+
+            if (data && !error) {
+                setContact({
+                    address: data.address || "",
+                    phone: data.phone || "",
+                    email: data.email || "",
+                    hours: data.hours || "",
+                    website: data.website || "",
+                });
+            }
+            setIsLoading(false);
+        };
+
+        fetchSettings();
+    }, []);
+
+    const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSaving(true);
-        setTimeout(() => {
-            setIsSaving(false);
+        const { error } = await supabase
+            .from('site_settings')
+            .upsert({
+                id: 1, // Ensure update on the single row
+                address: contact.address,
+                phone: contact.phone,
+                email: contact.email,
+                hours: contact.hours,
+                website: contact.website,
+                updated_at: new Date().toISOString()
+            });
+
+        setIsSaving(false);
+        if (!error) {
             setShowSuccess(true);
             setTimeout(() => setShowSuccess(false), 3000);
-        }, 1000);
+        } else {
+            alert("Error saving settings: " + error.message);
+        }
     };
+
+    if (isLoading) {
+        return <div className="p-8 text-center text-navy font-bold text-lg">Loading Settings...</div>;
+    }
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -86,6 +131,19 @@ export default function ContactAdmin() {
                                 className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-safety-orange focus:outline-none transition-all font-bold text-navy"
                             />
                         </div>
+
+                        {/* Website */}
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                <Globe className="w-3 h-3 text-safety-orange" />
+                                Website Address
+                            </label>
+                            <input
+                                value={contact.website}
+                                onChange={(e) => setContact({ ...contact, website: e.target.value })}
+                                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-safety-orange focus:outline-none transition-all font-bold text-navy"
+                            />
+                        </div>
                     </div>
 
                     <div className="flex items-center justify-between pt-6 border-t border-gray-100">
@@ -117,7 +175,7 @@ export default function ContactAdmin() {
                     </div>
                     <div>
                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Website</p>
-                        <p className="font-bold text-navy">www.secbuild.com</p>
+                        <p className="font-bold text-navy">{contact.website || "www.secbuild.com"}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
