@@ -12,6 +12,7 @@ import {
     Mail,
     LogOut,
     Hammer,
+    MessageSquare,
     ChevronRight,
     Menu,
     X,
@@ -52,6 +53,7 @@ export default function AdminLayout({
         { label: "Stats", icon: BarChart3, href: "/admin/stats" },
         { label: "Portfolio", icon: ImageIcon, href: "/admin/portfolio" },
         { label: "Contact Info", icon: Mail, href: "/admin/contact" },
+        { label: "Messages", icon: MessageSquare, href: "/admin/messages" },
     ];
 
     return (
