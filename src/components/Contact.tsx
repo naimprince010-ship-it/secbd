@@ -49,16 +49,17 @@ export function Contact({ address, phone, email }: ContactProps) {
                                 </div>
                             </div>
                         </div>
-                        ... (rest of the component unchanged)
-
-                        {/* Map Placeholder */}
-                        <div className="mt-12 rounded-xl overflow-hidden grayscale contrast-125 border border-gray-200 h-64 relative bg-gray-200">
-                            <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold uppercase italic opacity-50">
-                                Interactive Map Integration Placeholder
-                            </div>
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-safety-orange rounded-full flex items-center justify-center shadow-2xl">
-                                <MapPin className="w-6 h-6 text-navy" />
-                            </div>
+                        {/* Map iframe */}
+                        <div className="mt-12 rounded-xl overflow-hidden border border-gray-200 h-64 relative bg-gray-100">
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                style={{ border: 0 }}
+                                src={`https://maps.google.com/maps?q=${encodeURIComponent(address || "123 Construction Ave, Skyline City, SC 54321")}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                                allowFullScreen
+                                loading="lazy"
+                            />
                         </div>
                     </div>
 
